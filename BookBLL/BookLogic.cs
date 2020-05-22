@@ -1,20 +1,25 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using AbstractBLL;
-using AbstractDAL;
+using BookDAL;
 using Entities;
 
 namespace BookBLL
 {
     public class BookLogic : IBookLogic
     {
-        private IBookDao _bookDao;
+        private readonly BookDao _bookDao;
 
-        public BookLogic(IBookDao bookCopyDao)
+        public BookLogic()
         {
-            _bookDao = bookCopyDao;
+            _bookDao = new BookDao();
         }
 
+        public Book GetById(int id)
+        {
+            return _bookDao.GetById(id);
+        }
+        
         public List<Book> GetAll()
         {
             var listBook = _bookDao.GetAll();

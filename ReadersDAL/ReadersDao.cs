@@ -10,8 +10,25 @@ namespace ReadersDAL
 {
     public class ReadersDao : IReadersDao
     {
-        public ReadersDao()
+        public Readers GetById(int id)
         {
+            const string sqlExpression =
+                "SELECT LibraryCard, FullName, Age, AddressReader FROM Readers where LibraryCard=@id";
+            using (var connection = Dbsql.GetDbConnection())
+            {
+                connection.Open();
+                var command = new SqlCommand(sqlExpression, connection);
+                command.Parameters.AddWithValue("@id", id);
+                using (var dataReader = command.ExecuteReader())
+                {
+                    dataReader.Read();
+                    return new Readers(
+                        (int) (dataReader["LibraryCard"]),
+                        (string) (dataReader["FullName"]),
+                        (int) (dataReader["Age"]),
+                        (string) (dataReader["AddressReader"]));
+                }
+            }
         }
 
         public IEnumerable<Readers> GetAll()
@@ -26,12 +43,13 @@ namespace ReadersDAL
                 {
                     while (dataReader.Read())
                         listReaders.Add(new Readers(
-                            (int)(dataReader["LibraryCard"]), 
-                            (string)(dataReader["FullName"]),
-                            (int)(dataReader["Age"]),
-                            (string)(dataReader["AddressReader"])));
+                            (int) (dataReader["LibraryCard"]),
+                            (string) (dataReader["FullName"]),
+                            (int) (dataReader["Age"]),
+                            (string) (dataReader["AddressReader"])));
                 }
             }
+
             return listReaders.AsEnumerable();
         }
 
@@ -60,7 +78,8 @@ namespace ReadersDAL
         {
             try
             {
-                const string sqlExpression = "INSERT INTO Readers (LibraryCard, FullName, Age, AddressReader) VALUES (@LibraryCard, @FullName, @Age, @AddressReader)";
+                const string sqlExpression =
+                    "INSERT INTO Readers (LibraryCard, FullName, Age, AddressReader) VALUES (@LibraryCard, @FullName, @Age, @AddressReader)";
                 using (var connection = Dbsql.GetDbConnection())
                 {
                     connection.Open();

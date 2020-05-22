@@ -10,8 +10,26 @@ namespace BookDAL
 {
     public class BookDao : IBookDao
     {
-        public BookDao()
+        public Book GetById(int id)
         {
+            const string sqlExpression =
+                "SELECT BookID, Title, YearOfWriting, PublishingHouseID, LanguageBook FROM Book where BookID = @id";
+            using (var connection = Dbsql.GetDbConnection())
+            {
+                connection.Open();
+                var command = new SqlCommand(sqlExpression, connection);
+                command.Parameters.AddWithValue("@id", id);
+                using (var dataReader = command.ExecuteReader())
+                {
+                    dataReader.Read();
+                    return new Book(
+                        (int) (dataReader["BookID"]),
+                        (string) (dataReader["Title"]),
+                        (int) (dataReader["YearOfWriting"]),
+                        (int) (dataReader["PublishingHouseID"]),
+                        (string) (dataReader["LanguageBook"]));
+                }
+            }
         }
 
         public IEnumerable<Book> GetAll()
@@ -26,13 +44,14 @@ namespace BookDAL
                 {
                     while (dataReader.Read())
                         listBook.Add(new Book(
-                            (int)(dataReader["BookID"]), 
-                            (string)(dataReader["Title"]),
-                            (int)(dataReader["YearOfWriting"]),
-                            (int)(dataReader["PublishingHouseID"]),
-                            (string)(dataReader["LanguageBook"])));
+                            (int) (dataReader["BookID"]),
+                            (string) (dataReader["Title"]),
+                            (int) (dataReader["YearOfWriting"]),
+                            (int) (dataReader["PublishingHouseID"]),
+                            (string) (dataReader["LanguageBook"])));
                 }
             }
+
             return listBook.AsEnumerable();
         }
 
@@ -61,7 +80,8 @@ namespace BookDAL
         {
             try
             {
-                const string sqlExpression = "INSERT INTO Book (BookID, Title, YearOfWriting, PublishingHouseID, LanguageBook) VALUES (@BookID, @Title, @YearOfWriting, @PublishingHouseID, @LanguageBook)";
+                const string sqlExpression =
+                    "INSERT INTO Book (BookID, Title, YearOfWriting, PublishingHouseID, LanguageBook) VALUES (@BookID, @Title, @YearOfWriting, @PublishingHouseID, @LanguageBook)";
                 using (var connection = Dbsql.GetDbConnection())
                 {
                     connection.Open();

@@ -10,8 +10,26 @@ namespace BookIssuanceDAL
 {
     public class BookIssuanceDao : IBookIssuanceDao
     {
-        public BookIssuanceDao()
+        public BookIssuance GetById(int id)
         {
+            const string sqlExpression =
+                "SELECT BookIssuanceID, DateOfIssue, DateOfCompletion, LibraryCard, BookCopyID FROM BookIssuance where BookIssuanceID = @id";
+            using (var connection = Dbsql.GetDbConnection())
+            {
+                connection.Open();
+                var command = new SqlCommand(sqlExpression, connection);
+                command.Parameters.AddWithValue("@id", id);
+                using (var dataReader = command.ExecuteReader())
+                {
+                    dataReader.Read();
+                    return new BookIssuance(
+                        (int) (dataReader["BookIssuanceID"]),
+                        (DateTime) (dataReader["DateOfIssue"]),
+                        (DateTime) (dataReader["DateOfCompletion"]),
+                        (int) (dataReader["LibraryCard"]),
+                        (int) (dataReader["BookCopyID"]));
+                }
+            }
         }
 
         public IEnumerable<BookIssuance> GetAll()
@@ -26,13 +44,14 @@ namespace BookIssuanceDAL
                 {
                     while (dataReader.Read())
                         listBookIssuance.Add(new BookIssuance(
-                            (int)(dataReader["BookIssuanceID"]), 
-                            (DateTime)(dataReader["DateOfIssue"]),
-                            (DateTime)(dataReader["DateOfCompletion"]),
-                            (int)(dataReader["LibraryCard"]),
-                            (int)(dataReader["BookCopyID"])));
+                            (int) (dataReader["BookIssuanceID"]),
+                            (DateTime) (dataReader["DateOfIssue"]),
+                            (DateTime) (dataReader["DateOfCompletion"]),
+                            (int) (dataReader["LibraryCard"]),
+                            (int) (dataReader["BookCopyID"])));
                 }
             }
+
             return listBookIssuance.AsEnumerable();
         }
 
@@ -61,7 +80,8 @@ namespace BookIssuanceDAL
         {
             try
             {
-                const string sqlExpression = "INSERT INTO BookIssuance (BookIssuanceID, DateOfIssue, DateOfCompletion, LibraryCard, BookCopyID) VALUES (@BookIssuanceID, @DateOfIssue, @DateOfCompletion, @LibraryCard, @BookCopyID)";
+                const string sqlExpression =
+                    "INSERT INTO BookIssuance (BookIssuanceID, DateOfIssue, DateOfCompletion, LibraryCard, BookCopyID) VALUES (@BookIssuanceID, @DateOfIssue, @DateOfCompletion, @LibraryCard, @BookCopyID)";
                 using (var connection = Dbsql.GetDbConnection())
                 {
                     connection.Open();

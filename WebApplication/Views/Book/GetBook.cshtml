@@ -1,0 +1,15 @@
+﻿@model Entities.Book
+
+@{
+    ViewBag.Title = "Книга";
+    ViewBag.IsAdmin = (string) TempData.Peek("login") == "admin";
+    if (ViewBag.IsAdmin)
+    {
+        Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    }
+}
+
+<h5>@Model.BookTitle</h5>
+
+
+

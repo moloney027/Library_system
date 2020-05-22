@@ -54,6 +54,10 @@
         <Project>{0f53a21c-6b58-4f1e-97b4-f6f1b12a34e8}</Project>
         <Name>Entities</Name>
       </ProjectReference>
+      <ProjectReference Include="..\PublishingHouseDAL\PublishingHouseDAL.csproj">
+        <Project>{06a2b1b5-f25a-4b7d-b6d3-5f810d7c6e18}</Project>
+        <Name>PublishingHouseDAL</Name>
+      </ProjectReference>
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

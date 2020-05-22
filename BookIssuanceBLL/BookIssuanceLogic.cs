@@ -1,20 +1,24 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using AbstractBLL;
-using AbstractDAL;
+using BookIssuanceDAL;
 using Entities;
 
 namespace BookIssuanceBLL
 {
     public class BookIssuanceLogic : IBookIssuanceLogic
     {
-        private IBookIssuanceDao _bookIssuanceDao;
+        private readonly BookIssuanceDao _bookIssuanceDao;
 
-        public BookIssuanceLogic(IBookIssuanceDao bookIssuanceDao)
+        public BookIssuanceLogic()
         {
-            _bookIssuanceDao = bookIssuanceDao;
+            _bookIssuanceDao = new BookIssuanceDao();
         }
 
+        public BookIssuance GetById(int id)
+        {
+            return _bookIssuanceDao.GetById(id);
+        }
         public List<BookIssuance> GetAll()
         {
             var listBookIssuance = _bookIssuanceDao.GetAll();

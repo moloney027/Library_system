@@ -3,6 +3,7 @@ using System.Linq;
 using AbstractBLL;
 using AbstractDAL;
 using Entities;
+using PublishingHouseDAL;
 
 namespace PublishingHouseBLL
 {
@@ -10,9 +11,9 @@ namespace PublishingHouseBLL
     {
         private IPublishingHouseDao _publishingHouseDao;
 
-        public PublishingHouseLogic(IPublishingHouseDao publishingHouseDao)
+        public PublishingHouseLogic()
         {
-            _publishingHouseDao = publishingHouseDao;
+            _publishingHouseDao = new PublishingHouseDao();
         }
 
         public List<PublishingHouse> GetAll()

@@ -1,28 +1,38 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
+using ReadersBLL;
 
 namespace WebApplication.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly ReadersLogic _readersLogic = new ReadersLogic();
+
         public ActionResult Index()
         {
             return View();
         }
 
-        public ActionResult About()
+        [HttpPost]
+        public ActionResult Authorization(string login)
         {
-            ViewBag.Message = "Your application description page.";
-            return View();
-        }
+            TempData["login"] = login;
+            var readers = _readersLogic.GetAll();
+            if (readers.Exists(r => r.LibraryCardReader.Equals(int.Parse(login))) || login == "admin")
+            {
+                return RedirectToAction("AllBooks", "Book");
+            }
 
-        public ActionResult Contact()
+            return RedirectToAction("Index");
+
+        }
+        
+        [HttpPost]
+        public ActionResult AdminAuthorization(string password)
         {
-            ViewBag.Message = "Your contact page.";
-            return View();
+            if (password != "admin") return RedirectToAction("Index");
+            TempData["login"] = "admin";
+            return RedirectToAction("AllBooks", "Book");
+
         }
     }
 }

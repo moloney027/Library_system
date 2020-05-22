@@ -2,7 +2,13 @@
 {
     public class Book
     {
-        public Book(){}
+        public Book(string titleBook, int yearBook, int idPH, string langBook)
+        {
+            BookTitle = titleBook;
+            YearOfWriting = yearBook;
+            PublishingHouseID = idPH;
+            LanguageBook = langBook;
+        }
 
         public Book(int idBook, string titleBook, int yearBook, int idPH, string langBook)
         {

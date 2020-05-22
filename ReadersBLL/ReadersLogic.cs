@@ -3,16 +3,22 @@ using System.Linq;
 using AbstractBLL;
 using AbstractDAL;
 using Entities;
+using ReadersDAL;
 
 namespace ReadersBLL
 {
     public class ReadersLogic : IReadersLogic
     {
-        private IReadersDao _readersDao;
+        private ReadersDao _readersDao;
 
-        public ReadersLogic(IReadersDao readersDao)
+        public ReadersLogic()
         {
-            _readersDao = readersDao;
+            _readersDao = new ReadersDao();
+        }
+
+        public Readers GetById(int id)
+        {
+            return _readersDao.GetById(id);
         }
 
         public List<Readers> GetAll()
