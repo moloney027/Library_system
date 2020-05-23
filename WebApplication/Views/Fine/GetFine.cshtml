@@ -1,0 +1,48 @@
+﻿@model List<Entities.Fine>
+
+@{
+    ViewBag.Title = "Штраф";
+    ViewBag.IsAdmin = (string)TempData.Peek("login") == "admin";
+    if (ViewBag.IsAdmin)
+    {
+        Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    }
+    var fines = Model;
+}
+
+<h4>Штрафы по выдачи @TempData.Peek("BookIssuanceId")</h4>
+<form action="/Fine/AddFine" method="post">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Id штрафа</th>
+                <th scope="col">Сумма</th>
+                <th scope="col">Описание</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var c in fines)
+            {
+                <tr>
+                    <td>@c.FineID</td>
+                    <td>@c.FineAmount</td>
+                    <td>@c.FineArticle</td>
+                    @if (ViewBag.IsAdmin)
+                    {
+                <td>@Html.ActionLink("delete", "DeleteFine", new { id = c.FineID }, new { @class = "btn btn-danger", @type = "button" })</td>
+                    }
+                </tr>
+            }
+            @if (ViewBag.IsAdmin)
+            {
+        <tr>
+            <td><input type="number" name="id" /></td>
+            <td><input type="number" name="amount" /></td>
+            <td><input type="text" name="article" /></td>
+            <td><button class="btn btn-primary" type="submit">Добавить</button></td>
+        </tr>
+            }
+        </tbody>
+    </table>
+</form>

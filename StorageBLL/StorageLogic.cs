@@ -3,16 +3,17 @@ using System.Linq;
 using AbstractBLL;
 using AbstractDAL;
 using Entities;
+using StorageDAL;
 
 namespace StorageBLL
 {
     public class StorageLogic : IStorageLogic
     {
-        private IStorageDao _storageDao;
+        private readonly IStorageDao _storageDao;
 
-        public StorageLogic(IStorageDao storageDao)
+        public StorageLogic()
         {
-            _storageDao = storageDao;
+            _storageDao = new StorageDao();
         }
 
         public List<Storage> GetAll()

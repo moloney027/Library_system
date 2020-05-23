@@ -1,0 +1,30 @@
+﻿using Entities;
+using FineBLL;
+using System.Collections.Generic;
+using System.Web.Mvc;
+
+namespace WebApplication.Controllers
+{
+    public class FineController : Controller
+    {
+        private readonly FineLogic _fineLogic = new FineLogic();
+        public ActionResult GetFine(int bookIssuanceId)
+        {
+            TempData["BookIssuanceId"] = bookIssuanceId;
+            List<Fine> fineList = _fineLogic.GetAll().FindAll(f => f.BookIssuanceID == bookIssuanceId);
+            return View(fineList);
+        }
+
+        public ActionResult AddFine(int id, int amount, string article)
+        {
+            _ = _fineLogic.Create(new Fine(id, (int)TempData.Peek("BookIssuanceId"), amount, article));
+            return RedirectToAction("GetFine", new { bookIssuanceId = TempData.Peek("BookIssuanceId") });
+        }
+
+        public ActionResult DeleteFine(int id)
+        {
+            _fineLogic.Delete(id);
+            return RedirectToAction("GetFine", new { bookIssuanceId = TempData["BookIssuanceId"] });
+        }
+    }
+}

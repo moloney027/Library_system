@@ -3,16 +3,17 @@ using System.Linq;
 using AbstractBLL;
 using AbstractDAL;
 using Entities;
+using FineDAL;
 
 namespace FineBLL
 {
     public class FineLogic : IFineLogic
     {
-        private IFineDao _fineDao;
+        private readonly IFineDao _fineDao;
 
-        public FineLogic(IFineDao fineDao)
+        public FineLogic()
         {
-            _fineDao = fineDao;
+            _fineDao = new FineDao();
         }
 
         public List<Fine> GetAll()

@@ -86,16 +86,11 @@ namespace BookIssuanceDAL
                 {
                     connection.Open();
                     var command = new SqlCommand(sqlExpression, connection);
-                    var param1 = new SqlParameter("@BookIssuanceID", bookIssuance.BookIssuanceID);
-                    command.Parameters.Add(param1);
-                    var param2 = new SqlParameter("@DateOfIssue", bookIssuance.DateOfIssue);
-                    command.Parameters.Add(param2);
-                    var param3 = new SqlParameter("@DateOfCompletion", bookIssuance.DateOfCompletion);
-                    command.Parameters.Add(param3);
-                    var param4 = new SqlParameter("@LibraryCard", bookIssuance.LibraryCard);
-                    command.Parameters.Add(param4);
-                    var param5 = new SqlParameter("@BookCopyID", bookIssuance.BookCopyID);
-                    command.Parameters.Add(param5);
+                    command.Parameters.AddWithValue("@BookIssuanceID", bookIssuance.BookIssuanceID);
+                    command.Parameters.AddWithValue("@DateOfIssue", bookIssuance.DateOfIssue);
+                    command.Parameters.AddWithValue("@DateOfCompletion", bookIssuance.DateOfCompletion);
+                    command.Parameters.AddWithValue("@LibraryCard", bookIssuance.LibraryCard);
+                    command.Parameters.AddWithValue("@BookCopyID", bookIssuance.BookCopyID);
                     var number = command.ExecuteNonQuery();
                     return number;
                 }

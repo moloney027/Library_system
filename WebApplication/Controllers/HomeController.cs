@@ -1,5 +1,5 @@
-﻿using System.Web.Mvc;
-using ReadersBLL;
+﻿using ReadersBLL;
+using System.Web.Mvc;
 
 namespace WebApplication.Controllers
 {
@@ -16,22 +16,22 @@ namespace WebApplication.Controllers
         public ActionResult Authorization(string login)
         {
             TempData["login"] = login;
-            var readers = _readersLogic.GetAll();
-            if (readers.Exists(r => r.LibraryCardReader.Equals(int.Parse(login))) || login == "admin")
+            System.Collections.Generic.List<Entities.Readers> readers = _readersLogic.GetAll();
+            if (readers.Exists(r => r.LibraryCardReader.Equals(int.Parse(login))))
             {
-                return RedirectToAction("AllBooks", "Book");
+                return RedirectToAction("ReaderBookIssuance", "BookIssuance", new { libraryCard = login });
             }
 
             return RedirectToAction("Index");
 
         }
-        
+
         [HttpPost]
         public ActionResult AdminAuthorization(string password)
         {
             if (password != "admin") return RedirectToAction("Index");
             TempData["login"] = "admin";
-            return RedirectToAction("AllBooks", "Book");
+            return RedirectToAction("AllReaders", "Reader");
 
         }
     }

@@ -1,8 +1,8 @@
-﻿using System;
-using System.Web.Mvc;
-using BookBLL;
+﻿using BookBLL;
 using Entities;
 using PublishingHouseBLL;
+using System;
+using System.Web.Mvc;
 
 namespace WebApplication.Controllers
 {
@@ -13,17 +13,17 @@ namespace WebApplication.Controllers
 
         public ActionResult AllBooks()
         {
-            var books = _bookLogic.GetAll();
+            System.Collections.Generic.List<Book> books = _bookLogic.GetAll();
             ViewData["ph"] = _publishingHouseLogic.GetAll();
             return View(books);
         }
 
         public ActionResult AddBook()
         {
-            var title = Request.Form["title"];
-            var year = Convert.ToInt32(Request.Form["year"]);
-            var ph = Convert.ToInt32(Request.Form["ph"]);
-            var language = Request.Form["language"];
+            string title = Request.Form["title"];
+            int year = Convert.ToInt32(Request.Form["year"]);
+            int ph = Convert.ToInt32(Request.Form["ph"]);
+            string language = Request.Form["language"];
             _bookLogic.Create(new Book(title, year, ph, language));
             return RedirectToAction("AllBooks");
         }

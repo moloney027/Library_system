@@ -28,7 +28,7 @@ namespace FineDAL
                         listFine.Add(new Fine(
                             (int)(dataReader["FineID"]), 
                             (int)(dataReader["BookIssuanceID"]),
-                            (int)(dataReader["Amount"]), 
+                            (Byte)(dataReader["Amount"]), 
                             (string)(dataReader["Article"])));
                 }
             }
@@ -65,14 +65,10 @@ namespace FineDAL
                 {
                     connection.Open();
                     var command = new SqlCommand(sqlExpression, connection);
-                    var param1 = new SqlParameter("@CityID", fine.FineID);
-                    command.Parameters.Add(param1);
-                    var param2 = new SqlParameter("@Title", fine.BookIssuanceID);
-                    command.Parameters.Add(param2);
-                    var param3 = new SqlParameter("@Title", fine.FineAmount);
-                    command.Parameters.Add(param3);
-                    var param4 = new SqlParameter("@Title", fine.FineArticle);
-                    command.Parameters.Add(param4);
+                    command.Parameters.AddWithValue("@FineID", fine.FineID);
+                    command.Parameters.AddWithValue("@BookIssuanceID", fine.BookIssuanceID);
+                    command.Parameters.AddWithValue("@Amount", fine.FineAmount);
+                    command.Parameters.AddWithValue("@Article", fine.FineArticle);
                     var number = command.ExecuteNonQuery();
                     return number;
                 }

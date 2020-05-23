@@ -2,17 +2,18 @@
 using System.Linq;
 using AbstractBLL;
 using AbstractDAL;
+using BookCopyDAL;
 using Entities;
 
 namespace BookCopyBLL
 {
     public class BookCopyLogic : IBookCopyLogic
     {
-        private IBookCopyDao _bookCopyDao;
+        private readonly IBookCopyDao _bookCopyDao;
 
-        public BookCopyLogic(IBookCopyDao bookCopyDao)
+        public BookCopyLogic()
         {
-            _bookCopyDao = bookCopyDao;
+            _bookCopyDao = new BookCopyDao();
         }
 
         public List<BookCopy> GetAll()

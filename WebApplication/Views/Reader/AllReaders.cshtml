@@ -1,9 +1,54 @@
 ﻿@model List<Entities.Readers>
 
 @{
-    ViewBag.Title = "title";
-    Layout = "_Layout";
+    ViewBag.Title = "Читатели";
+    ViewBag.IsAdmin = (string) TempData.Peek("login") == "admin";
+    if (ViewBag.IsAdmin)
+    {
+        Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    }
 }
+<div class="card">
+<form action="/Reader/AddReader" method="post">
+    <div class="form-row">
+        <div class="form-group col-3">
+            <label for="libraryCard">Номер читательского билета</label>
+            <input class="form-control" type="number" required="required" min="100000" id="libraryCard" name="libraryCard">
+        </div>
+        <div class="form-group col-3">
+            <label for="fullName">Полное имя</label>
+            <input class="form-control" type="text" required="required" id="fullName" name="fullName">
+        </div>
+        <div class="form-group col-1">
+            <label for="age">Возраст</label>
+            <input class="form-control" type="number" required="required" min="0" id="age" name="age">
+        </div>
 
-<h2>title</h2>
+        <div class="form-group col-3">
+            <label for="address">Адрес</label>
+            <input class="form-control" type="text" required="required" id="address" name="address">
+        </div>
+        <div class="col-2 mx-auto my-auto">
+            <button class="btn btn-primary" type="submit">Добавить нового пользователя</button>
+        </div>
+    </div>
 
+</form>
+</div>
+<div class="row row-cols-1 row-cols-md-4">
+    @foreach (var r in Model)
+    {
+        <div class="col mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">@r.ReaderFullName</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">@r.LibraryCardReader</h6>
+                    <p class="card-text">Возраст: @r.ReaderAge</p>
+                    <p class="card-text">Адрес: @r.ReaderAddress</p>
+                    @Html.ActionLink("Выданные книги", "ReaderBookIssuance", "BookIssuance", new { libraryCard = @r.LibraryCardReader }, new {@class = "card-link"})
+                    @Html.ActionLink("Удалить", "DeleteReader", "Reader", new {libraryCard = @r.LibraryCardReader}, new {@class = "card-link"})
+                </div>
+            </div>
+        </div>
+    }
+</div>
