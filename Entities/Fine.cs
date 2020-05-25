@@ -4,7 +4,7 @@
     {
         public Fine(){}
 
-        public Fine(int idFine, int idBI, int amountFine, string articleFine)
+        public Fine(int idFine, int idBI, byte amountFine, string articleFine)
         {
             FineID = idFine;
             BookIssuanceID = idBI;
@@ -14,7 +14,7 @@
 
         public int FineID { get; set; }
         public int BookIssuanceID { get; set; }
-        public int FineAmount { get; set; }
+        public byte FineAmount { get; set; }
         public string FineArticle { get; set; }
     }
 }

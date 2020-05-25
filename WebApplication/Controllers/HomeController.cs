@@ -9,6 +9,7 @@ namespace WebApplication.Controllers
 
         public ActionResult Index()
         {
+            TempData["login"] = null;
             return View();
         }
 
