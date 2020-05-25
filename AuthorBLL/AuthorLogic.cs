@@ -2,17 +2,18 @@
 using System.Linq;
 using AbstractBLL;
 using AbstractDAL;
+using AuthorDAL;
 using Entities;
 
 namespace AuthorBLL
 {
     public class AuthorLogic : IAuthorLogic
     {
-        private IAuthorDao _authorDao;
+        private readonly IAuthorDao _authorDao;
 
-        public AuthorLogic(IAuthorDao authorDao)
+        public AuthorLogic()
         {
-            _authorDao = authorDao;
+            _authorDao = new AuthorDao();
         }
 
         public List<Author> GetAll()

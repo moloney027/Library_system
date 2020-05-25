@@ -12,6 +12,8 @@
 }
 
 <h4>Выдачи пользователя @TempData.Peek("FullName")</h4>
+@if (ViewBag.IsAdmin)
+{
 <div class="card">
 <form action="/BookIssuance/AddBookIssuance" method="post">
     <div class="form-row">
@@ -42,19 +44,22 @@
     </div>
 </form>
 </div>
-
+}
 <div class="row row-cols-1 row-cols-md-4">
     @foreach (var r in Model)
     {
         <div class="col mb-4">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">@books.Find(b => b.Id == r.BookCopyID).BookTitle</h5>
+                    <h5 class="card-title">@Html.ActionLink(@books.Find(b => b.Id == r.BookCopyID).BookTitle, "GetBook", "Book", new { bookId = @books.Find(b => b.Id == r.BookCopyID).BookId }, new { @class = "card-link" })</h5>
                     <h6 class="card-subtitle mb-2 text-muted">@r.BookCopyID</h6>
                     <p class="card-text">Дата выдачи: @r.DateOfIssue</p>
                     <p class="card-text">Дата сдачи: @r.DateOfCompletion</p>
                     @Html.ActionLink("Штрафы", "GetFine", "Fine", new { bookIssuanceId = @r.BookIssuanceID }, new { @class = "card-link" })
+                    @if (ViewBag.IsAdmin)
+                    {
                     @Html.ActionLink("Удалить", "DeleteReader", "Reader", new { libraryCard = @r.LibraryCard, id = @r.BookIssuanceID }, new { @class = "card-link" })
+                    }
                 </div>
             </div>
         </div>

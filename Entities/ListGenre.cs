@@ -2,7 +2,7 @@
 {
     public class ListGenre
     {
-        public ListGenre(){}
+        public ListGenre() { }
 
         public ListGenre(int idLG, int idBook, int idGenre)
         {

@@ -14,7 +14,15 @@
         <h5>@Model.BookTitle</h5>
     </div>
     <div class="card-body">
-
+        Язык: @Model.LanguageBook
+        <hr />
+        Год написания: @Model.YearOfWriting
+    <hr />
+        Издательство: @ViewData["ph"]
+    <hr />
+        Автор: @ViewData["author"]
+    <hr />
+        Жанр: @ViewData["genre"]
     </div>
 </div>
 

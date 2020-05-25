@@ -281,6 +281,14 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\AuthorBLL\AuthorBLL.csproj">
+      <Project>{A06684F6-873A-4345-9A9D-06CC2CFA3632}</Project>
+      <Name>AuthorBLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AuthorsAndBooksBLL\AuthorsAndBooksBLL.csproj">
+      <Project>{877BC536-68BA-4899-9A5B-FE1D59972CA8}</Project>
+      <Name>AuthorsAndBooksBLL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BookBLL\BookBLL.csproj">
       <Project>{4fbc6de4-879f-4251-a999-fd8a94c7c634}</Project>
       <Name>BookBLL</Name>
@@ -300,6 +308,14 @@
     <ProjectReference Include="..\FineBLL\FineBLL.csproj">
       <Project>{B63D568F-53A0-40C4-840A-1E3C260F53B8}</Project>
       <Name>FineBLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GenreBLL\GenreBLL.csproj">
+      <Project>{38527A27-4467-4788-B06B-748E457C0680}</Project>
+      <Name>GenreBLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ListGenreBLL\ListGenreBLL.csproj">
+      <Project>{14146D79-6BDC-482B-BBA1-0415FA509628}</Project>
+      <Name>ListGenreBLL</Name>
     </ProjectReference>
     <ProjectReference Include="..\PublishingHouseBLL\PublishingHouseBLL.csproj">
       <Project>{48338a78-e015-4987-ae13-0a49d413efa6}</Project>
