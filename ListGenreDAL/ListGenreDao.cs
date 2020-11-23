@@ -38,7 +38,7 @@ namespace ListGenreDAL
         {
             try
             {
-                const string sqlExpression = "DELETE FROM ListGenre WHERE GenreID = @id";
+                const string sqlExpression = "DELETE FROM ListGenre WHERE ID = @id";
                 using (var connection = Dbsql.GetDbConnection())
                 {
                     connection.Open();
@@ -64,11 +64,11 @@ namespace ListGenreDAL
                 {
                     connection.Open();
                     var command = new SqlCommand(sqlExpression, connection);
-                    var param1 = new SqlParameter("@GenreID", listGenre.IDListGenre);
+                    var param1 = new SqlParameter("@ID", listGenre.IDListGenre);
                     command.Parameters.Add(param1);
-                    var param2 = new SqlParameter("@Title", listGenre.BookID);
+                    var param2 = new SqlParameter("@BookID", listGenre.BookID);
                     command.Parameters.Add(param2);
-                    var param3 = new SqlParameter("@Title", listGenre.GenreID);
+                    var param3 = new SqlParameter("@GenreID", listGenre.GenreID);
                     command.Parameters.Add(param3);
                     var number = command.ExecuteNonQuery();
                     return number;

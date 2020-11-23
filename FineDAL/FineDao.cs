@@ -26,10 +26,9 @@ namespace FineDAL
                 {
                     while (dataReader.Read())
                         listFine.Add(new Fine(
-                            (int)(dataReader["FineID"]), 
-                            (int)(dataReader["BookIssuanceID"]),
-                            (Byte)(dataReader["Amount"]), 
-                            (string)(dataReader["Article"])));
+                            (int) (dataReader["ID"]),
+                            (int) (dataReader["BookIssuanceID"]),
+                            (Byte) (dataReader["Amount"])));
                 }
             }
             return listFine.AsEnumerable();
@@ -39,7 +38,7 @@ namespace FineDAL
         {
             try
             {
-                const string sqlExpression = "DELETE FROM Fine WHERE FineID = @id";
+                const string sqlExpression = "DELETE FROM Fine WHERE ID = @id";
                 using (var connection = Dbsql.GetDbConnection())
                 {
                     connection.Open();
@@ -60,15 +59,14 @@ namespace FineDAL
         {
             try
             {
-                const string sqlExpression = "INSERT INTO Fine (FineID, BookIssuanceID, Amount, Article) VALUES (@FineID, @BookIssuanceID, @Amount, @Article)";
+                const string sqlExpression = "INSERT INTO Fine (ID, BookIssuanceID, Amount) VALUES (@ID, @BookIssuanceID, @Amount)";
                 using (var connection = Dbsql.GetDbConnection())
                 {
                     connection.Open();
                     var command = new SqlCommand(sqlExpression, connection);
-                    command.Parameters.AddWithValue("@FineID", fine.FineID);
+                    command.Parameters.AddWithValue("@ID", fine.FineID);
                     command.Parameters.AddWithValue("@BookIssuanceID", fine.BookIssuanceID);
                     command.Parameters.AddWithValue("@Amount", fine.FineAmount);
-                    command.Parameters.AddWithValue("@Article", fine.FineArticle);
                     var number = command.ExecuteNonQuery();
                     return number;
                 }

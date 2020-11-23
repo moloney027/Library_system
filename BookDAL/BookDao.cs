@@ -13,7 +13,7 @@ namespace BookDAL
         public Book GetById(int id)
         {
             const string sqlExpression =
-                "SELECT BookID, Title, YearOfWriting, PublishingHouseID, LanguageBook FROM Book where BookID = @id";
+                "SELECT ID, Title, YearOfWriting, PublishingHouseID, LanguageBook FROM Book where ID = @id";
             using (var connection = Dbsql.GetDbConnection())
             {
                 connection.Open();
@@ -23,7 +23,7 @@ namespace BookDAL
                 {
                     dataReader.Read();
                     return new Book(
-                        (int) (dataReader["BookID"]),
+                        (int) (dataReader["ID"]),
                         (string) (dataReader["Title"]),
                         (int) (dataReader["YearOfWriting"]),
                         (int) (dataReader["PublishingHouseID"]),
@@ -44,7 +44,7 @@ namespace BookDAL
                 {
                     while (dataReader.Read())
                         listBook.Add(new Book(
-                            (int) (dataReader["BookID"]),
+                            (int) (dataReader["ID"]),
                             (string) (dataReader["Title"]),
                             (int) (dataReader["YearOfWriting"]),
                             (int) (dataReader["PublishingHouseID"]),
@@ -59,7 +59,7 @@ namespace BookDAL
         {
             try
             {
-                const string sqlExpression = "DELETE FROM Book WHERE BookID = @id";
+                const string sqlExpression = "DELETE FROM Book WHERE ID = @id";
                 using (var connection = Dbsql.GetDbConnection())
                 {
                     connection.Open();
@@ -81,20 +81,20 @@ namespace BookDAL
             try
             {
                 const string sqlExpression =
-                    "INSERT INTO Book (BookID, Title, YearOfWriting, PublishingHouseID, LanguageBook) VALUES (@BookID, @Title, @YearOfWriting, @PublishingHouseID, @LanguageBook)";
+                    "INSERT INTO Book (ID, Title, YearOfWriting, PublishingHouseID, LanguageBook) VALUES (@ID, @Title, @YearOfWriting, @PublishingHouseID, @LanguageBook)";
                 using (var connection = Dbsql.GetDbConnection())
                 {
                     connection.Open();
                     var command = new SqlCommand(sqlExpression, connection);
-                    var idParam = new SqlParameter("@BookCopyID", book.BookID);
+                    var idParam = new SqlParameter("@ID", book.BookID);
                     command.Parameters.Add(idParam);
-                    var titleParam = new SqlParameter("@BookID", book.BookTitle);
+                    var titleParam = new SqlParameter("@Title", book.BookTitle);
                     command.Parameters.Add(titleParam);
-                    var yearOfWritingParam = new SqlParameter("@StorageID", book.YearOfWriting);
+                    var yearOfWritingParam = new SqlParameter("@YearOfWriting", book.YearOfWriting);
                     command.Parameters.Add(yearOfWritingParam);
-                    var publishingHouseIdParam = new SqlParameter("@StorageID", book.PublishingHouseID);
+                    var publishingHouseIdParam = new SqlParameter("@PublishingHouseID", book.PublishingHouseID);
                     command.Parameters.Add(publishingHouseIdParam);
-                    var languageBookIdParam = new SqlParameter("@StorageID", book.LanguageBook);
+                    var languageBookIdParam = new SqlParameter("@LanguageBook", book.LanguageBook);
                     command.Parameters.Add(languageBookIdParam);
                     var number = command.ExecuteNonQuery();
                     return number;

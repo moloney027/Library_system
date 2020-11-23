@@ -26,7 +26,7 @@ namespace GenreDAL
                 {
                     while (dataReader.Read())
                         listGenre.Add(new Genre(
-                            (int)(dataReader["GenreID"]), 
+                            (int)(dataReader["ID"]), 
                             (string)(dataReader["Title"])));
                 }
             }
@@ -37,7 +37,7 @@ namespace GenreDAL
         {
             try
             {
-                const string sqlExpression = "DELETE FROM Genre WHERE GenreID = @id";
+                const string sqlExpression = "DELETE FROM Genre WHERE ID = @id";
                 using (var connection = Dbsql.GetDbConnection())
                 {
                     connection.Open();
@@ -58,12 +58,12 @@ namespace GenreDAL
         {
             try
             {
-                const string sqlExpression = "INSERT INTO Genre (GenreID, Title) VALUES (@GenreID, @Title)";
+                const string sqlExpression = "INSERT INTO Genre (ID, Title) VALUES (@ID, @Title)";
                 using (var connection = Dbsql.GetDbConnection())
                 {
                     connection.Open();
                     var command = new SqlCommand(sqlExpression, connection);
-                    var param1 = new SqlParameter("@GenreID", genre.GenreID);
+                    var param1 = new SqlParameter("@ID", genre.GenreID);
                     command.Parameters.Add(param1);
                     var param2 = new SqlParameter("@Title", genre.GenreTitle);
                     command.Parameters.Add(param2);

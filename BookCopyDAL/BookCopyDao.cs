@@ -26,9 +26,8 @@ namespace BookCopyDAL
                 {
                     while (dataReader.Read())
                         listBookCopy.Add(new BookCopy(
-                            (int)(dataReader["BookCopyID"]), 
-                            (int)(dataReader["BookID"]),
-                            (int)(dataReader["StorageID"])));
+                            (int)(dataReader["ID"]), 
+                            (int)(dataReader["BookID"])));
                 }
             }
             return listBookCopy.AsEnumerable();
@@ -38,7 +37,7 @@ namespace BookCopyDAL
         {
             try
             {
-                const string sqlExpression = "DELETE FROM BookCopy WHERE BookCopyID = @id";
+                const string sqlExpression = "DELETE FROM BookCopy WHERE ID = @id";
                 using (var connection = Dbsql.GetDbConnection())
                 {
                     connection.Open();
@@ -59,17 +58,15 @@ namespace BookCopyDAL
         {
             try
             {
-                const string sqlExpression = "INSERT INTO BookCopy (BookCopyID, BookID, StorageID) VALUES (@BookCopyID, @BookID, @StorageID)";
+                const string sqlExpression = "INSERT INTO BookCopy (ID, BookID) VALUES (@ID, @BookID)";
                 using (var connection = Dbsql.GetDbConnection())
                 {
                     connection.Open();
                     var command = new SqlCommand(sqlExpression, connection);
-                    var idParam = new SqlParameter("@BookCopyID", bookCopy.BookCopyID);
+                    var idParam = new SqlParameter("@ID", bookCopy.BookCopyID);
                     command.Parameters.Add(idParam);
                     var idBookParam = new SqlParameter("@BookID", bookCopy.BookID);
                     command.Parameters.Add(idBookParam);
-                    var idStorageParam = new SqlParameter("@StorageID", bookCopy.StorageID);
-                    command.Parameters.Add(idStorageParam);
                     var number = command.ExecuteNonQuery();
                     return number;
                 }

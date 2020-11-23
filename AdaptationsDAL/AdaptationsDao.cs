@@ -26,7 +26,7 @@ namespace AdaptationsDAL
                 {
                     while (dataReader.Read())
                         listAdaptations.Add(new Adaptations(
-                            (int)(dataReader["AdaptationID"]), 
+                            (int)(dataReader["ID"]), 
                             (int)(dataReader["BookID"]),
                             (string)(dataReader["TypeAdaptation"]), 
                             (int)(dataReader["Year_"]), 
@@ -40,7 +40,7 @@ namespace AdaptationsDAL
         {
             try
             {
-                const string sqlExpression = "DELETE FROM Adaptations WHERE AdaptationID = @id";
+                const string sqlExpression = "DELETE FROM Adaptations WHERE ID = @id";
                 using (var connection = Dbsql.GetDbConnection())
                 {
                     connection.Open();
@@ -62,13 +62,13 @@ namespace AdaptationsDAL
             try
             {
                 var sqlExpression = "INSERT INTO Adaptations " + 
-                                    "(AdaptationID, BookID, TypeAdaptation, Year_, Country) " + 
-                                    "VALUES (@AdaptationID, @BookID, @TypeAdaptation, @Year_, @Country)";
+                                    "(ID, BookID, TypeAdaptation, Year_, Country) " + 
+                                    "VALUES (@ID, @BookID, @TypeAdaptation, @Year_, @Country)";
                 using (var connection = Dbsql.GetDbConnection())
                 {
                     connection.Open();
                     var command = new SqlCommand(sqlExpression, connection);
-                    var idParam = new SqlParameter("@AdaptationID", adaptation.AdaptationID);
+                    var idParam = new SqlParameter("@ID", adaptation.AdaptationID);
                     command.Parameters.Add(idParam);
                     var bookIdParam = new SqlParameter("@BookID", adaptation.BookID);
                     command.Parameters.Add(bookIdParam);

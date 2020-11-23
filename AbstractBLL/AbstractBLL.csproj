@@ -44,14 +44,11 @@
         <Compile Include="IBookCopyLogic.cs" />
         <Compile Include="IBookIssuanceLogic.cs" />
         <Compile Include="IBookLogic.cs" />
-        <Compile Include="ICityLogic.cs" />
         <Compile Include="IFineLogic.cs" />
         <Compile Include="IGenreLogic.cs" />
         <Compile Include="IListGenreLogic.cs" />
         <Compile Include="IPublishingHouseLogic.cs" />
         <Compile Include="IReadersLogic.cs" />
-        <Compile Include="IReviewsLogic.cs" />
-        <Compile Include="IStorageLogic.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
     </ItemGroup>
     <ItemGroup>

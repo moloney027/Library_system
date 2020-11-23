@@ -32,10 +32,10 @@
         <div class="form-group col-3">
             <label for="bookCopy">Экземпляр книги</label>
             <select id="bookCopy" class="custom-select" name="bookCopyId">
-                @foreach (var bcm in books)
-                {
-                    <option value="@bcm.Id">@bcm.BookTitle (#@bcm.Id, стелаж №@bcm.Rack, полка №@bcm.Shelf)</option>
-                }
+@*                 @foreach (var bcm in books) *@
+@*                 { *@
+@*                     <option value="@bcm.Id">@bcm.BookTitle (#@bcm.Id, стелаж №@bcm.Rack, полка №@bcm.Shelf)</option> *@
+@*                 } *@
             </select>
         </div>
         <div class="col-2 mx-auto my-auto">
@@ -55,7 +55,7 @@
                     <h6 class="card-subtitle mb-2 text-muted">@r.BookCopyID</h6>
                     <p class="card-text">Дата выдачи: @r.DateOfIssue</p>
                     <p class="card-text">Дата сдачи: @r.DateOfCompletion</p>
-                    @Html.ActionLink("Штрафы", "GetFine", "Fine", new { bookIssuanceId = @r.BookIssuanceID }, new { @class = "card-link" })
+                    @Html.ActionLink("Штрафы", "GetFine", "Fine", new { bookIssuanceID = @r.BookIssuanceID }, new { @class = "card-link" })
                     @if (ViewBag.IsAdmin)
                     {
                     @Html.ActionLink("Удалить", "DeleteReader", "Reader", new { libraryCard = @r.LibraryCard, id = @r.BookIssuanceID }, new { @class = "card-link" })

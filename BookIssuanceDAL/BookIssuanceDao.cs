@@ -13,7 +13,7 @@ namespace BookIssuanceDAL
         public BookIssuance GetById(int id)
         {
             const string sqlExpression =
-                "SELECT BookIssuanceID, DateOfIssue, DateOfCompletion, LibraryCard, BookCopyID FROM BookIssuance where BookIssuanceID = @id";
+                "SELECT ID, DateOfIssue, DateOfCompletion, LibraryCard, BookCopyID FROM BookIssuance where ID = @id";
             using (var connection = Dbsql.GetDbConnection())
             {
                 connection.Open();
@@ -23,7 +23,7 @@ namespace BookIssuanceDAL
                 {
                     dataReader.Read();
                     return new BookIssuance(
-                        (int) (dataReader["BookIssuanceID"]),
+                        (int) (dataReader["ID"]),
                         (DateTime) (dataReader["DateOfIssue"]),
                         (DateTime) (dataReader["DateOfCompletion"]),
                         (int) (dataReader["LibraryCard"]),
@@ -44,7 +44,7 @@ namespace BookIssuanceDAL
                 {
                     while (dataReader.Read())
                         listBookIssuance.Add(new BookIssuance(
-                            (int) (dataReader["BookIssuanceID"]),
+                            (int) (dataReader["ID"]),
                             (DateTime) (dataReader["DateOfIssue"]),
                             (DateTime) (dataReader["DateOfCompletion"]),
                             (int) (dataReader["LibraryCard"]),
@@ -59,7 +59,7 @@ namespace BookIssuanceDAL
         {
             try
             {
-                const string sqlExpression = "DELETE FROM BookIssuance WHERE BookIssuanceID = @id";
+                const string sqlExpression = "DELETE FROM BookIssuance WHERE ID = @id";
                 using (var connection = Dbsql.GetDbConnection())
                 {
                     connection.Open();
@@ -81,12 +81,12 @@ namespace BookIssuanceDAL
             try
             {
                 const string sqlExpression =
-                    "INSERT INTO BookIssuance (BookIssuanceID, DateOfIssue, DateOfCompletion, LibraryCard, BookCopyID) VALUES (@BookIssuanceID, @DateOfIssue, @DateOfCompletion, @LibraryCard, @BookCopyID)";
+                    "INSERT INTO BookIssuance (ID, DateOfIssue, DateOfCompletion, LibraryCard, BookCopyID) VALUES (@ID, @DateOfIssue, @DateOfCompletion, @LibraryCard, @BookCopyID)";
                 using (var connection = Dbsql.GetDbConnection())
                 {
                     connection.Open();
                     var command = new SqlCommand(sqlExpression, connection);
-                    command.Parameters.AddWithValue("@BookIssuanceID", bookIssuance.BookIssuanceID);
+                    command.Parameters.AddWithValue("@ID", bookIssuance.BookIssuanceID);
                     command.Parameters.AddWithValue("@DateOfIssue", bookIssuance.DateOfIssue);
                     command.Parameters.AddWithValue("@DateOfCompletion", bookIssuance.DateOfCompletion);
                     command.Parameters.AddWithValue("@LibraryCard", bookIssuance.LibraryCard);

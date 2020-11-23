@@ -26,7 +26,7 @@ namespace AuthorDAL
                 {
                     while (dataReader.Read())
                         listAuthor.Add(new Author(
-                            (int)(dataReader["AuthorID"]), 
+                            (int)(dataReader["ID"]), 
                             (string)(dataReader["FullName"]),
                             (DateTime)(dataReader["DateOfBirth"]), 
                             (string)(dataReader["PlaceOfBirth"])));
@@ -39,7 +39,7 @@ namespace AuthorDAL
         {
             try
             {
-                const string sqlExpression = "DELETE FROM Author WHERE AuthorID = @id";
+                const string sqlExpression = "DELETE FROM Author WHERE ID = @id";
                 using (var connection = Dbsql.GetDbConnection())
                 {
                     connection.Open();
@@ -60,12 +60,12 @@ namespace AuthorDAL
         {
             try
             {
-                var sqlExpression = "INSERT INTO Author (AuthorID, FullName, DateOfBirth, PlaceOfBirth) VALUES (@AuthorID, @FullName, @DateOfBirth, @PlaceOfBirth)";
+                var sqlExpression = "INSERT INTO Author (ID, FullName, DateOfBirth, PlaceOfBirth) VALUES (@ID, @FullName, @DateOfBirth, @PlaceOfBirth)";
                 using (var connection = Dbsql.GetDbConnection())
                 {
                     connection.Open();
                     var command = new SqlCommand(sqlExpression, connection);
-                    var idParam = new SqlParameter("@AuthorID", author.AuthorID);
+                    var idParam = new SqlParameter("@ID", author.AuthorID);
                     command.Parameters.Add(idParam);
                     var fullNameParam = new SqlParameter("@FullName", author.AuthorFullName);
                     command.Parameters.Add(fullNameParam);

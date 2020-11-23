@@ -27,7 +27,6 @@
                 <tr>
                     <td>@c.FineID</td>
                     <td>@c.FineAmount</td>
-                    <td>@c.FineArticle</td>
                     @if (ViewBag.IsAdmin)
                     {
                 <td>@Html.ActionLink("delete", "DeleteFine", new { id = c.FineID }, new { @class = "btn btn-danger", @type = "button" })</td>

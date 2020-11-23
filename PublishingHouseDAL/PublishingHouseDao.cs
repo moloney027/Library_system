@@ -26,10 +26,9 @@ namespace PublishingHouseDAL
                 {
                     while (dataReader.Read())
                         listPublishingHouse.Add(new PublishingHouse(
-                            (int)(dataReader["PublishingHouseID"]), 
+                            (int)(dataReader["ID"]), 
                             (string)(dataReader["Title"]),
-                            (int)(dataReader["DateOfEstablishment"]),
-                            (int)(dataReader["CityID"])));
+                            (int)(dataReader["DateOfEstablishment"])));
                 }
             }
             return listPublishingHouse.AsEnumerable();
@@ -39,7 +38,7 @@ namespace PublishingHouseDAL
         {
             try
             {
-                const string sqlExpression = "DELETE FROM PublishingHouse WHERE PublishingHouseID = @id";
+                const string sqlExpression = "DELETE FROM PublishingHouse WHERE ID = @id";
                 using (var connection = Dbsql.GetDbConnection())
                 {
                     connection.Open();
@@ -60,19 +59,17 @@ namespace PublishingHouseDAL
         {
             try
             {
-                const string sqlExpression = "INSERT INTO PublishingHouse (PublishingHouseID, Title, DateOfEstablishment, CityID) VALUES (@PublishingHouseID, @Title, @DateOfEstablishment, @CityID)";
+                const string sqlExpression = "INSERT INTO PublishingHouse (ID, Title, DateOfEstablishment) VALUES (@ID, @Title, @DateOfEstablishment)";
                 using (var connection = Dbsql.GetDbConnection())
                 {
                     connection.Open();
                     var command = new SqlCommand(sqlExpression, connection);
-                    var param1 = new SqlParameter("@PublishingHouseID", publishingHouse.PublishingHouseID);
+                    var param1 = new SqlParameter("@ID", publishingHouse.PublishingHouseID);
                     command.Parameters.Add(param1);
                     var param2 = new SqlParameter("@Title", publishingHouse.PublishingHouseTitle);
                     command.Parameters.Add(param2);
                     var param3 = new SqlParameter("@DateOfEstablishment", publishingHouse.DateOfEstablishment);
                     command.Parameters.Add(param3);
-                    var param4 = new SqlParameter("@CityID", publishingHouse.CityID);
-                    command.Parameters.Add(param4);
                     var number = command.ExecuteNonQuery();
                     return number;
                 }

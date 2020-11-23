@@ -44,14 +44,11 @@
         <Compile Include="IBookDao.cs" />
         <Compile Include="IBookCopyDao.cs" />
         <Compile Include="IBookIssuanceDao.cs" />
-        <Compile Include="ICityDao.cs" />
         <Compile Include="IFineDao.cs" />
         <Compile Include="IGenreDao.cs" />
         <Compile Include="IListGenreDao.cs" />
         <Compile Include="IPublishingHouseDao.cs" />
         <Compile Include="IReadersDao.cs" />
-        <Compile Include="IReviewsDao.cs" />
-        <Compile Include="IStorageDao.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
     </ItemGroup>
     <ItemGroup>

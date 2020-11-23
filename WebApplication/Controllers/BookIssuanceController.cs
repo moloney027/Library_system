@@ -3,7 +3,6 @@ using BookCopyBLL;
 using BookIssuanceBLL;
 using Entities;
 using ReadersBLL;
-using StorageBLL;
 using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
@@ -17,7 +16,6 @@ namespace WebApplication.Controllers
         private readonly ReadersLogic _readersLogic = new ReadersLogic();
         private readonly BookCopyLogic _bookCopyLogic = new BookCopyLogic();
         private readonly BookLogic _bookLogic = new BookLogic();
-        private readonly StorageLogic _storageLogic = new StorageLogic();
 
         public ActionResult ReaderBookIssuance(int libraryCard)
         {
@@ -26,12 +24,10 @@ namespace WebApplication.Controllers
             List<BookCopyModel> bookCopyModels = new List<BookCopyModel>();
             List<BookCopy> bookCopies = _bookCopyLogic.GetAll();
             List<Book> books = _bookLogic.GetAll();
-            List<Storage> storages = _storageLogic.GetAll();
             foreach (BookCopy bc in bookCopies)
             {
                 Book book = books.Find(b => b.BookID == bc.BookID);
-                Storage storage = storages.Find(s => s.StorageID == bc.StorageID);
-                bookCopyModels.Add(new BookCopyModel(bc.BookCopyID, book.BookID, book.BookTitle, storage.StorageID, storage.StorageRack, storage.StorageShelf));
+                bookCopyModels.Add(new BookCopyModel(bc.BookCopyID, book.BookID, book.BookTitle));
             }
             TempData["BookCopy"] = bookCopyModels;
 

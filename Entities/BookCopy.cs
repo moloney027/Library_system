@@ -4,15 +4,13 @@
     {
         public BookCopy(){}
 
-        public BookCopy(int idBookCopy, int idBook, int idStorage)
+        public BookCopy(int idBookCopy, int idBook)
         {
             BookCopyID = idBookCopy;
             BookID = idBook;
-            StorageID = idStorage;
         }
 
         public int BookCopyID { get; set; }
         public int BookID { get; set; }
-        public int StorageID { get; set; }
     }
 }

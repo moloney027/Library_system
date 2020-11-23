@@ -13,7 +13,7 @@ namespace ReadersDAL
         public Readers GetById(int id)
         {
             const string sqlExpression =
-                "SELECT LibraryCard, FullName, Age, AddressReader FROM Readers where LibraryCard=@id";
+                "SELECT ID, FullName, Age, AddressReader FROM Readers where ID = @id";
             using (var connection = Dbsql.GetDbConnection())
             {
                 connection.Open();
@@ -23,7 +23,7 @@ namespace ReadersDAL
                 {
                     dataReader.Read();
                     return new Readers(
-                        (int) (dataReader["LibraryCard"]),
+                        (int) (dataReader["ID"]),
                         (string) (dataReader["FullName"]),
                         (int) (dataReader["Age"]),
                         (string) (dataReader["AddressReader"]));
@@ -43,7 +43,7 @@ namespace ReadersDAL
                 {
                     while (dataReader.Read())
                         listReaders.Add(new Readers(
-                            (int) (dataReader["LibraryCard"]),
+                            (int) (dataReader["ID"]),
                             (string) (dataReader["FullName"]),
                             (int) (dataReader["Age"]),
                             (string) (dataReader["AddressReader"])));
@@ -57,7 +57,7 @@ namespace ReadersDAL
         {
             try
             {
-                const string sqlExpression = "DELETE FROM Readers WHERE LibraryCard = @id";
+                const string sqlExpression = "DELETE FROM Readers WHERE ID = @id";
                 using (var connection = Dbsql.GetDbConnection())
                 {
                     connection.Open();
@@ -79,12 +79,12 @@ namespace ReadersDAL
             try
             {
                 const string sqlExpression =
-                    "INSERT INTO Readers (LibraryCard, FullName, Age, AddressReader) VALUES (@LibraryCard, @FullName, @Age, @AddressReader)";
+                    "INSERT INTO Readers (ID, FullName, Age, AddressReader) VALUES (@ID, @FullName, @Age, @AddressReader)";
                 using (var connection = Dbsql.GetDbConnection())
                 {
                     connection.Open();
                     var command = new SqlCommand(sqlExpression, connection);
-                    var param1 = new SqlParameter("@LibraryCard", readers.LibraryCardReader);
+                    var param1 = new SqlParameter("@ID", readers.LibraryCardReader);
                     command.Parameters.Add(param1);
                     var param2 = new SqlParameter("@FullName", readers.ReaderFullName);
                     command.Parameters.Add(param2);
